@@ -1,0 +1,57 @@
+{
+  "categories": [
+    {
+      "id": "dyr",
+      "name": "Dyr 🐾",
+      "bgColor": 4294959548,
+      "pairs": [
+        { "word": "hund",     "emoji": "🐶" },
+        { "word": "katt",     "emoji": "🐱" },
+        { "word": "fugl",     "emoji": "🐦" },
+        { "word": "fisk",     "emoji": "🐟" },
+        { "word": "hest",     "emoji": "🐴" },
+        { "word": "ku",       "emoji": "🐄" },
+        { "word": "sau",      "emoji": "🐑" },
+        { "word": "gris",     "emoji": "🐷" },
+        { "word": "frosk",    "emoji": "🐸" },
+        { "word": "bjørn",    "emoji": "🐻" },
+        { "word": "løve",     "emoji": "🦁" },
+        { "word": "elefant",  "emoji": "🐘" }
+      ]
+    },
+    {
+      "id": "mat",
+      "name": "Mat 🍽️",
+      "bgColor": 4294900952,
+      "pairs": [
+        { "word": "eple",       "emoji": "🍎" },
+        { "word": "banan",      "emoji": "🍌" },
+        { "word": "pizza",      "emoji": "🍕" },
+        { "word": "kake",       "emoji": "🎂" },
+        { "word": "is",         "emoji": "🍦" },
+        { "word": "brød",       "emoji": "🍞" },
+        { "word": "jordbær",    "emoji": "🍓" },
+        { "word": "appelsin",   "emoji": "🍊" },
+        { "word": "egg",        "emoji": "🥚" },
+        { "word": "gulrot",     "emoji": "🥕" }
+      ]
+    },
+    {
+      "id": "farger",
+      "name": "Farger 🎨",
+      "bgColor": 4293918950,
+      "pairs": [
+        { "word": "rød",     "emoji": "🔴" },
+        { "word": "blå",     "emoji": "🔵" },
+        { "word": "grønn",   "emoji": "🟢" },
+        { "word": "gul",     "emoji": "🟡" },
+        { "word": "svart",   "emoji": "⬛" },
+        { "word": "hvit",    "emoji": "⬜" },
+        { "word": "lilla",   "emoji": "🟣" },
+        { "word": "oransje", "emoji": "🟠" },
+        { "word": "brun",    "emoji": "🟤" },
+        { "word": "rosa",    "emoji": "🌸" }
+      ]
+    }
+  ]
+}
