@@ -4,7 +4,7 @@ import { GAME_WIDTH, GAME_HEIGHT, FONTS } from '../constants';
 const TILES: { icon: string; label: string; color: number; active: boolean }[] = [
   { icon: '🔤', label: 'Ord og Emoji', color: 0x74c0fc, active: true },
   { icon: '🔢', label: 'Tall og Figur', color: 0xd0bfff, active: false },
-  { icon: '🔡', label: 'Bokstaver',     color: 0xb2f2bb, active: false },
+  { icon: '🔡', label: 'Bokstaver', color: 0xb2f2bb, active: false },
 ];
 
 const TILE_W = 200;
@@ -49,22 +49,13 @@ export class MainMenuScene extends Phaser.Scene {
     });
   }
 
-  private createTile(
-    x: number,
-    y: number,
-    icon: string,
-    label: string,
-    color: number,
-    active: boolean,
-  ): void {
+  private createTile(x: number, y: number, icon: string, label: string, color: number, active: boolean): void {
     // Background rect
     const bg = this.add.rectangle(x, y, TILE_W, TILE_H, color, active ? 1 : 0.35);
     bg.setStrokeStyle(3, active ? 0x339af0 : 0xadb5bd);
 
     // Icon
-    this.add
-      .text(x, y - 52, icon, { fontSize: '72px', fontFamily: FONTS.emoji })
-      .setOrigin(0.5);
+    this.add.text(x, y - 52, icon, { fontSize: '72px', fontFamily: FONTS.emoji }).setOrigin(0.5);
 
     // Label
     this.add

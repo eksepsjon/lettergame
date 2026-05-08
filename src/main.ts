@@ -1,9 +1,9 @@
 import * as Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT } from './constants';
-import { BootScene }      from './scenes/BootScene';
-import { MainMenuScene }  from './scenes/MainMenuScene';
+import { BootScene } from './scenes/BootScene';
+import { MainMenuScene } from './scenes/MainMenuScene';
 import { WordMatchScene } from './scenes/WordMatchScene';
-import { WinScene }       from './scenes/WinScene';
+import { WinScene } from './scenes/WinScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,

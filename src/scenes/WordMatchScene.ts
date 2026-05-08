@@ -13,14 +13,14 @@ interface Card {
   matched: boolean;
 }
 
-const WORD_NORMAL   = 0xffffff;
+const WORD_NORMAL = 0xffffff;
 const WORD_SELECTED = 0xffd43b;
-const MATCHED_BG    = 0xb2f2bb;
-const WRONG_BG      = 0xffe3e3;
-const STROKE_NORMAL   = 0xdee2e6;
+const MATCHED_BG = 0xb2f2bb;
+const WRONG_BG = 0xffe3e3;
+const STROKE_NORMAL = 0xdee2e6;
 const STROKE_SELECTED = 0xf59f00;
-const STROKE_MATCHED  = 0x51cf66;
-const STROKE_WRONG    = 0xff6b6b;
+const STROKE_MATCHED = 0x51cf66;
+const STROKE_WRONG = 0xff6b6b;
 
 export class WordMatchScene extends Phaser.Scene {
   private pairs: WordPair[] = [];
@@ -47,7 +47,7 @@ export class WordMatchScene extends Phaser.Scene {
     this.pairs = pickRandom(category.pairs, 5);
 
     // Independent shuffled column orders
-    const wordOrder  = shuffle([0, 1, 2, 3, 4]);
+    const wordOrder = shuffle([0, 1, 2, 3, 4]);
     const emojiOrder = shuffle([0, 1, 2, 3, 4]);
 
     this.drawBackground(category.bgColor);
@@ -74,13 +74,7 @@ export class WordMatchScene extends Phaser.Scene {
 
     // Subtle column lanes
     g.fillStyle(0xffffff, 0.35);
-    g.fillRoundedRect(
-      LAYOUT.wordColumnX  - LAYOUT.wordCardW  / 2 - 12,
-      80,
-      LAYOUT.wordCardW  + 24,
-      GAME_HEIGHT - 90,
-      10,
-    );
+    g.fillRoundedRect(LAYOUT.wordColumnX - LAYOUT.wordCardW / 2 - 12, 80, LAYOUT.wordCardW + 24, GAME_HEIGHT - 90, 10);
     g.fillRoundedRect(
       LAYOUT.emojiColumnX - LAYOUT.emojiCardW / 2 - 12,
       80,
@@ -102,7 +96,7 @@ export class WordMatchScene extends Phaser.Scene {
 
   private drawColumnLabels(): void {
     const style = { fontSize: '18px', fontFamily: FONTS.family, color: '#636e72' };
-    this.add.text(LAYOUT.wordColumnX,  88, 'ORD',   style).setOrigin(0.5);
+    this.add.text(LAYOUT.wordColumnX, 88, 'ORD', style).setOrigin(0.5);
     this.add.text(LAYOUT.emojiColumnX, 88, 'EMOJI', style).setOrigin(0.5);
   }
 
@@ -117,12 +111,10 @@ export class WordMatchScene extends Phaser.Scene {
       .setInteractive({ useHandCursor: true });
 
     btn.on('pointerover', () => btn.setStyle({ color: '#2d3436' }));
-    btn.on('pointerout',  () => btn.setStyle({ color: '#636e72' }));
+    btn.on('pointerout', () => btn.setStyle({ color: '#636e72' }));
     btn.on('pointerdown', () => {
       this.cameras.main.fadeOut(200, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () =>
-        this.scene.start('MainMenuScene'),
-      );
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('MainMenuScene'));
     });
   }
 
@@ -176,8 +168,12 @@ export class WordMatchScene extends Phaser.Scene {
     const card: Card = { bg, text, pairIndex, slot, matched: false };
     this.emojiCards[slot] = card;
 
-    bg.on('pointerover', () => { if (!card.matched) bg.setFillStyle(0xf1f3f5); });
-    bg.on('pointerout',  () => { if (!card.matched) bg.setFillStyle(WORD_NORMAL); });
+    bg.on('pointerover', () => {
+      if (!card.matched) bg.setFillStyle(0xf1f3f5);
+    });
+    bg.on('pointerout', () => {
+      if (!card.matched) bg.setFillStyle(WORD_NORMAL);
+    });
     bg.on('pointerdown', () => this.onEmojiClick(slot));
   }
 
@@ -215,7 +211,7 @@ export class WordMatchScene extends Phaser.Scene {
   private onEmojiClick(emojiSlot: number): void {
     if (this.busy || this.selectedSlot < 0) return;
 
-    const wordCard  = this.wordCards[this.selectedSlot];
+    const wordCard = this.wordCards[this.selectedSlot];
     const emojiCard = this.emojiCards[emojiSlot];
 
     if (emojiCard.matched) return;
@@ -265,9 +261,7 @@ export class WordMatchScene extends Phaser.Scene {
             if (this.matchedCount >= 5) {
               this.time.delayedCall(500, () => {
                 this.cameras.main.fadeOut(300, 255, 255, 255);
-                this.cameras.main.once('camerafadeoutcomplete', () =>
-                  this.scene.start('WinScene'),
-                );
+                this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('WinScene'));
               });
             }
           },
