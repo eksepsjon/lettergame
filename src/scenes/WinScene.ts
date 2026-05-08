@@ -35,7 +35,7 @@ export class WinScene extends Phaser.Scene {
     // Next round button
     this.createButton(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 80, 'Neste runde 🔄', 0x74c0fc, 0x339af0, () => {
       this.cameras.main.fadeOut(200, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('WordMatchScene'));
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('ConnectThePairsScene'));
     });
 
     // Back to menu button

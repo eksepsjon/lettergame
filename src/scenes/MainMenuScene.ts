@@ -1,15 +1,38 @@
 import * as Phaser from 'phaser';
-import { GAME_WIDTH, GAME_HEIGHT, FONTS } from '../constants';
+import { GAME_WIDTH, GAME_HEIGHT, FONTS, PX } from '../constants';
 
-const TILES: { icon: string; label: string; color: number; active: boolean }[] = [
-  { icon: '🔤', label: 'Ord og Emoji', color: 0x74c0fc, active: true },
-  { icon: '🔢', label: 'Tall og Figur', color: 0xd0bfff, active: false },
-  { icon: '🔡', label: 'Bokstaver', color: 0xb2f2bb, active: false },
+type TileData = {
+  icon: string;
+  label: string;
+  color: number;
+  active: boolean;
+  scene?: string;
+  sceneData?: Record<string, unknown>;
+};
+
+const TILES: TileData[] = [
+  {
+    icon: '🔤',
+    label: 'Ord og Emoji',
+    color: 0x74c0fc,
+    active: true,
+    scene: 'ConnectThePairsScene',
+    sceneData: { pairGenerator: 'wordEmoji' },
+  },
+  {
+    icon: '🔢',
+    label: 'Pluss (0-10)',
+    color: 0xd0bfff,
+    active: true,
+    scene: 'ConnectThePairsScene',
+    sceneData: { pairGenerator: 'mathLowPlus' },
+  },
+  // { icon: '🔡', label: 'Bokstaver', color: 0xb2f2bb, active: false },
 ];
 
-const TILE_W = 200;
-const TILE_H = 210;
-const TILE_GAP = 30;
+const TILE_W = PX(250);
+const TILE_H = PX(150);
+const TILE_GAP = PX(30);
 const TOTAL_W = TILES.length * TILE_W + (TILES.length - 1) * TILE_GAP;
 const START_X = (GAME_WIDTH - TOTAL_W) / 2 + TILE_W / 2;
 
@@ -26,16 +49,16 @@ export class MainMenuScene extends Phaser.Scene {
 
     // Title
     this.add
-      .text(GAME_WIDTH / 2, 90, '🎮 Lærings-spill', {
-        fontSize: '52px',
+      .text(GAME_WIDTH / 2, PX(50), '🎮 Lærings-spill', {
+        fontSize: `${PX(52)}px`,
         fontFamily: FONTS.family,
         color: '#2d3436',
       })
       .setOrigin(0.5);
 
     this.add
-      .text(GAME_WIDTH / 2, 158, 'Velg et spill:', {
-        fontSize: '26px',
+      .text(GAME_WIDTH / 2, PX(120), 'Velg et spill:', {
+        fontSize: `${PX(26)}px`,
         fontFamily: FONTS.family,
         color: '#636e72',
       })
@@ -44,23 +67,24 @@ export class MainMenuScene extends Phaser.Scene {
     // Game tiles
     TILES.forEach((tile, i) => {
       const x = START_X + i * (TILE_W + TILE_GAP);
-      const y = GAME_HEIGHT / 2 + 50;
-      this.createTile(x, y, tile.icon, tile.label, tile.color, tile.active);
+      const y = GAME_HEIGHT / 2 + PX(50);
+      this.createTile(x, y, tile);
     });
   }
 
-  private createTile(x: number, y: number, icon: string, label: string, color: number, active: boolean): void {
+  private createTile(x: number, y: number, tile: TileData): void {
+    const { icon, label, color, active, scene } = tile;
     // Background rect
     const bg = this.add.rectangle(x, y, TILE_W, TILE_H, color, active ? 1 : 0.35);
     bg.setStrokeStyle(3, active ? 0x339af0 : 0xadb5bd);
 
     // Icon
-    this.add.text(x, y - 52, icon, { fontSize: '72px', fontFamily: FONTS.emoji }).setOrigin(0.5);
+    this.add.text(x, y - PX(24), icon, { fontSize: `${PX(72)}px`, fontFamily: FONTS.emoji }).setOrigin(0.5);
 
     // Label
     this.add
-      .text(x, y + 64, label, {
-        fontSize: '22px',
+      .text(x, y + PX(48), label, {
+        fontSize: `${PX(22)}px`,
         fontFamily: FONTS.family,
         color: active ? '#1a1a2e' : '#868e96',
       })
@@ -68,8 +92,8 @@ export class MainMenuScene extends Phaser.Scene {
 
     if (!active) {
       this.add
-        .text(x, y + 10, 'Snart!', {
-          fontSize: '20px',
+        .text(x, y + PX(24), 'Snart!', {
+          fontSize: `${PX(20)}px`,
           fontFamily: FONTS.family,
           color: '#adb5bd',
         })
@@ -89,7 +113,9 @@ export class MainMenuScene extends Phaser.Scene {
     bg.on('pointerdown', () => {
       this.cameras.main.fadeOut(200, 0, 0, 0);
       this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.scene.start('WordMatchScene');
+        if (scene) {
+          this.scene.start(scene, tile.sceneData);
+        }
       });
     });
   }
